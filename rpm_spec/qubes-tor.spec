@@ -87,6 +87,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /bin/systemctl enable qubes-tor.service 2> /dev/null
+if [ $1 -eq 1 ]; then
+    /sbin/chkconfig tor off 2> /dev/null
+fi
 
 %changelog
 * Tue Mar 12 2013 Abel Luck <abel@outcomedubious.im> 0.1.1
