@@ -32,6 +32,7 @@ TOR_SOCKS_ISOLATED_PORT=9049 # maximum circuit isolation
 TOR_CONTROL_PORT=0 # 0 = disabled
 VIRTUAL_ADDR_NET=172.16.0.0/12
 DATA_DIRECTORY=/rw/usrlocal/lib/qubes-tor
+RUNDIR=/var/run/tor
 
 VARS="QUBES_IP TOR_TRANS_PORT TOR_SOCKS_PORT TOR_SOCKS_ISOLATED_PORT TOR_CONTROL_PORT VIRTUAL_ADDR_NET DATA_DIRECTORY"
 
@@ -39,7 +40,7 @@ VARS="QUBES_IP TOR_TRANS_PORT TOR_SOCKS_PORT TOR_SOCKS_ISOLATED_PORT TOR_CONTROL
 DEFAULT_RC=/usr/lib/qubes-tor/torrc
 DEFAULT_RC_TEMPLATE=/usr/lib/qubes-tor/torrc.tpl
 USER_RC=/rw/config/qubes-tor/torrc
-PID=/var/run/qubes-tor.pid
+PID=$RUNDIR/qubes-tor.pid
 
 
 # $1 = space delimited vars
@@ -115,6 +116,12 @@ fi
 if [ ! -d "$DATA_DIRECTORY" ]; then
 	mkdir -p $DATA_DIRECTORY || exit_error "Error creating data directory"
 fi
+chown -R _tor:_tor $DATA_DIRECTORY
+
+if [ ! -d "$RUNDIR" ]; then
+	mkdir -p $RUNDIR || exit_error "Error creating run directory"
+fi
+chown -R _tor:_tor $RUNDIR
 
 # pass the -f option only when config file exists
 if [ -r "$USER_RC" ]; then
@@ -128,12 +135,14 @@ fi
 /usr/bin/tor \
 	--defaults-torrc $DEFAULT_RC \
 	$USER_RC_OPTION --verify-config \
+	--user _tor \
 || exit_error "Error in Tor configuration"
 
 # start tor
 /usr/bin/tor \
 	--defaults-torrc $DEFAULT_RC \
 	$USER_RC_OPTION \
+	--user _tor \
 	--RunAsDaemon 1 \
 	--Log "notice syslog" \
 	--PIDFile $PID \

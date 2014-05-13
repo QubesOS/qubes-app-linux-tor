@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 Type=forking
-PIDFile=/var/run/qubes-tor.pid
+PIDFile=/var/run/tor/qubes-tor.pid
 RemainAfterExit=no
 ExecStart=/usr/lib/qubes-tor/start_tor_proxy.sh
 StandardOutput=syslog
