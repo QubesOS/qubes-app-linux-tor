@@ -1,5 +1,4 @@
 [Unit]
-Names=qubes_tor.service
 Description=Qubes transparent tor proxy setup
 ConditionPathExists=/var/run/qubes-service/qubes-tor
 After=network.target
