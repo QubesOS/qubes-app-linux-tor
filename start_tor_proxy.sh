@@ -60,7 +60,7 @@ function setup_firewall
 	echo "0" > /proc/sys/net/ipv4/ip_forward
 	/sbin/iptables -F
 	/sbin/iptables -P INPUT DROP
-	/sbin/iptables -P FORWARD ACCEPT
+	/sbin/iptables -P FORWARD DROP
 	/sbin/iptables -P OUTPUT ACCEPT
 	/sbin/iptables -A INPUT -i vif+ -p udp -m udp --dport 53 -j ACCEPT
 	/sbin/iptables -A INPUT -i vif+ -p tcp -m tcp --dport $TOR_TRANS_PORT -j ACCEPT
@@ -84,7 +84,6 @@ function setup_firewall
 	/sbin/iptables -t nat -A PREROUTING -i vif+ -p tcp -m tcp --dport $TOR_SOCKS_ISOLATED_PORT -j DNAT --to-destination $QUBES_IP:$TOR_SOCKS_ISOLATED_PORT
 	/sbin/iptables -t nat -A PREROUTING -i vif+ -p tcp -m tcp --dport $TOR_SOCKS_PORT -j DNAT --to-destination $QUBES_IP:$TOR_SOCKS_PORT
 	/sbin/iptables -t nat -A PREROUTING -i vif+ -p tcp -j DNAT --to-destination $QUBES_IP:$TOR_TRANS_PORT
-	echo "1" > /proc/sys/net/ipv4/ip_forward
 
 	# completely disable ipv6
 	/sbin/ip6tables -P INPUT DROP
