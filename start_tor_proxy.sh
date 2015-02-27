@@ -24,8 +24,19 @@
 
 killall tor &> /dev/null
 
+# Qubes R3
+if which qubesdb-read > /dev/null; then
+    QUBESDB=qubesdb
+    PREFIX='/'
+
+# Qubes R2
+else
+    QUBESDB=xenstore
+    PREFIX=''
+fi
+
 # defaults torrc variables - overridable by user
-QUBES_IP=$(xenstore-read qubes-ip)
+QUBES_IP=$(${QUBESDB}-read ${PREFIX}qubes-ip)
 TOR_TRANS_PORT=9040 # maximum circuit isolation
 TOR_SOCKS_PORT=9050 # less circuit isolation
 TOR_SOCKS_ISOLATED_PORT=9049 # maximum circuit isolation
