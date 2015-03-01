@@ -60,3 +60,19 @@ update-repo-unstable:
 		dist=$$(basename $$vmrepo) ;\
 		ln -f $(RPMS_DIR)/x86_64/qubes-tor-*$(VERSION)*$$dist*.rpm $$vmrepo/rpm/ ;\
 	done
+
+install-common:
+	install -D start_tor_proxy.sh $(DESTDIR)/usr/lib/qubes-tor/start_tor_proxy.sh
+	install -D torrc.tpl $(DESTDIR)/usr/lib/qubes-tor/torrc.tpl
+	install -D torrc $(DESTDIR)/usr/lib/qubes-tor/torrc
+	install -D README.md $(DESTDIR)/usr/lib/qubes-tor/README
+	install -D 99-qubes-tor-hook.rules $(DESTDIR)/etc/udev/rules.d/99-qubes-tor-hook.rules
+	install -D qubes-tor.service $(DESTDIR)/lib/systemd/system/qubes-tor.service 
+
+install-rh: install-common
+	install -D torproject.repo $(DESTDIR)/etc/yum.repos.d/torproject.repo
+	install -D RPM-GPG-KEY-torproject.org.asc $(DESTDIR)/etc/pki/rpm-gpg/RPM-GPG-KEY-torproject.org.asc
+
+install-deb: install-common
+	install -D torproject.list $(DESTDIR)/etc/apt/sources.lists.d/torproject.list
+	install -D torprojectarchive.asc $(DESTDIR)/usr/lib/qubes-tor/torprojectarchive.asc

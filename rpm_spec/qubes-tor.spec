@@ -58,14 +58,7 @@ The torproject's Fedora repository and GPG key
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -D torproject.repo $RPM_BUILD_ROOT/etc/yum.repos.d/torproject.repo
-install -D RPM-GPG-KEY-torproject.org.asc $RPM_BUILD_ROOT/etc/pki/rpm-gpg/RPM-GPG-KEY-torproject.org.asc
-install -D start_tor_proxy.sh $RPM_BUILD_ROOT/usr/lib/qubes-tor/start_tor_proxy.sh
-install -D torrc.tpl $RPM_BUILD_ROOT/usr/lib/qubes-tor/torrc.tpl
-install -D torrc $RPM_BUILD_ROOT/usr/lib/qubes-tor/torrc
-install -D README.md $RPM_BUILD_ROOT/usr/lib/qubes-tor/README
-install -D 99-qubes-tor-hook.rules $RPM_BUILD_ROOT/etc/udev/rules.d/99-qubes-tor-hook.rules
-install -D qubes-tor.service $RPM_BUILD_ROOT/lib/systemd/system/qubes-tor.service 
+make install-rh DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT

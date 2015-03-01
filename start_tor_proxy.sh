@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # 
 # The Qubes OS Project, http://www.qubes-os.org
 #
@@ -24,8 +24,19 @@
 
 killall tor &> /dev/null
 
+# Qubes R3
+if which qubesdb-read > /dev/null; then
+    QUBESDB=qubesdb
+    PREFIX='/'
+
+# Qubes R2
+else
+    QUBESDB=xenstore
+    PREFIX=''
+fi
+
 # defaults torrc variables - overridable by user
-QUBES_IP=$(xenstore-read qubes-ip)
+QUBES_IP=$(${QUBESDB}-read ${PREFIX}qubes-ip)
 TOR_TRANS_PORT=9040 # maximum circuit isolation
 TOR_SOCKS_PORT=9050 # less circuit isolation
 TOR_SOCKS_ISOLATED_PORT=9049 # maximum circuit isolation
@@ -33,7 +44,7 @@ TOR_CONTROL_PORT=0 # 0 = disabled
 VIRTUAL_ADDR_NET=172.16.0.0/12
 DATA_DIRECTORY=/rw/usrlocal/lib/qubes-tor
 RUNDIR=/var/run/tor
-TOR_USER=`id -u -n _tor 2>/dev/null || id -u -n toranon 2>/dev/null || echo root`
+TOR_USER=`id -u -n _tor 2>/dev/null || id -u -n toranon 2>/dev/null || id -u -n debian-tor 2>/dev/null || echo root`
 
 VARS="QUBES_IP TOR_TRANS_PORT TOR_SOCKS_PORT TOR_SOCKS_ISOLATED_PORT TOR_CONTROL_PORT VIRTUAL_ADDR_NET DATA_DIRECTORY"
 
@@ -122,6 +133,7 @@ if [ ! -d "$RUNDIR" ]; then
 	mkdir -p $RUNDIR || exit_error "Error creating run directory"
 fi
 chown -R $TOR_USER:$TOR_USER $RUNDIR
+chmod 0755 $RUNDIR
 
 # pass the -f option only when config file exists
 if [ -r "$USER_RC" ]; then
