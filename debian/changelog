@@ -1,3 +1,16 @@
+qubes-tor (0.1.9-1) wheezy; urgency=medium
+
+  [ Jason Mehring ]
+  * debian: Change start_tor_proxy.sh to use bash, not sh sinne it
+    contains bashisms
+  * R3: Add support for Release 3 (qubesdb)
+  * debian: Added qubes-tor Debian packaging
+
+  [ Marek Marczykowski-Górecki ]
+  * debian: Use DEBIAN_PARSER provided by builder
+
+ -- Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>  Fri, 27 Mar 2015 00:34:45 +0100
+
 qubes-tor (0.1.8-1) unstable; urgency=low
 
   * Initial Release.
