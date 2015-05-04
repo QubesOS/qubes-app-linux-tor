@@ -1,3 +1,13 @@
+qubes-tor (0.1.10-1) wheezy; urgency=medium
+
+  [ Abel Luck ]
+  * README: change fedora 18 references to 20 and fix numbering
+  * reduce default stream isolation settings
+  * kernel bug workaround to prevent leaking packets
+  * convert tabs to spaces
+
+ -- Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>  Mon, 04 May 2015 02:25:48 +0200
+
 qubes-tor (0.1.9-1) wheezy; urgency=medium
 
   [ Jason Mehring ]
