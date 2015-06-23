@@ -25,7 +25,7 @@
 killall tor &> /dev/null
 
 # Qubes R3
-if which qubesdb-read > /dev/null; then
+if type qubesdb-read > /dev/null 2>&1; then
     QUBESDB=qubesdb
     PREFIX='/'
 
