@@ -65,13 +65,7 @@ Installation
 6. Shutdown templateVM.
 7. Set prefs of torvm to use your default netvm or firewallvm as its NetVM
 8. Start the TorVM and any AppVM you have configured
-9. Execute in TorVM (will be not necessary in R2 Beta3):
-
-        sudo mkdir /rw/usrlocal/etc/qubes-tor
-        sudo touch /rw/usrlocal/etc/qubes-tor/torrc
-        sudo service qubes-tor restart
-
-10. From the AppVM, verify torified connectivity
+9. From the AppVM, verify torified connectivity
 
         curl https://check.torproject.org
 
@@ -161,7 +155,7 @@ all TorVMs.
 You can override these settings in your TorVM, or provide your own custom
 settings by appending them to:
 
-      /rw/usrlocal/etc/qubes-tor/torrc
+      /rw/config/qubes-tor/torrc
 
 For information on tor configuration settings `man tor`
 

@@ -22,8 +22,6 @@
 # run only if qubes-tor service enabled
 [ -r /var/run/qubes-service/qubes-tor ] || exit 0
 
-killall tor &> /dev/null
-
 # Qubes R3
 if type qubesdb-read > /dev/null 2>&1; then
     QUBESDB=qubesdb
@@ -53,6 +51,8 @@ DEFAULT_RC=/usr/lib/qubes-tor/torrc
 DEFAULT_RC_TEMPLATE=/usr/lib/qubes-tor/torrc.tpl
 USER_RC=/rw/config/qubes-tor/torrc
 PID=$RUNDIR/qubes-tor.pid
+
+kill `cat "$PID"` &> /dev/null
 
 
 # $1 = space delimited vars
