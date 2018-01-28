@@ -22,10 +22,9 @@
 #
 #
 
-%{!?version: %define version %(cat version)}
 
 Name:		qubes-tor
-Version:	%{version}
+Version:	@VERSION@
 Release:	1%{dist}
 Summary:	The Qubes package for running a TorVM
 
@@ -40,10 +39,11 @@ Requires:       tor >= 0.2.3
 
 Obsoletes:  qubes-tor-init
 
+Source0: %{name}-%{version}.tar.gz
+
 %description
 A tor distribution for Qubes OS
 
-%define _builddir %(pwd)
 
 %package repo
 Summary: Torproject RPM repository
@@ -53,8 +53,7 @@ Summary: Torproject RPM repository
 The torproject's Fedora repository and GPG key
 
 %prep
-
-%build
+%setup -q
 
 %install
 rm -rf $RPM_BUILD_ROOT
