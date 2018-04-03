@@ -84,12 +84,4 @@ if [ $1 -eq 1 ]; then
 fi
 
 %changelog
-* Tue Mar 12 2013 Abel Luck <abel@outcomedubious.im> 0.1.1
-- Support custom Tor settings
-- Robustly handle error conditions
-* Sat Mar 09 2013 Abel Luck <abel@outcomedubious.im> 0.1
-- Persist tor's DataDirectory
-- Documenation updates
-- Lessen default stream isolation settings
-* Fri Oct 12 2012 Abel Luck <abel@outcomedubious.im> 0.1beta1
-- Initial release
+@CHANGELOG@
