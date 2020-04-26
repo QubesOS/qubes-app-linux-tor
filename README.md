@@ -1,6 +1,8 @@
 Qubes TorVM (qubes-tor)
 ==========================
 
+**This package is not maintained anymore, use [Whonix](https://www.qubes-os.org/doc/whonix/) for similar functionality**
+
 Qubes TorVM is a ProxyVM service that provides torified networking to all its
 clients.
 
